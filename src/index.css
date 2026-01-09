@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth theme transitions */
+html {
+	transition: background-color 200ms ease, color 200ms ease;
+}
+
+/* Make dark mode body background compatible */
+html.dark body {
+	background-color: #0f172a; /* slate-900 */
+}
+
+/* Subtle float animation for cards */
+@keyframes float {
+	0% { transform: translateY(0); }
+	50% { transform: translateY(-6px); }
+	100% { transform: translateY(0); }
+}
+.animate-float {
+	animation: float 6s ease-in-out infinite;
+}
+
+/* Shimmer for skeletons */
+@keyframes shimmer {
+	0% { transform: translateX(-100%); }
+	100% { transform: translateX(100%); }
+}
+.animate-shimmer { 
+	animation: shimmer 1.2s linear infinite;
+}
+
+/* 3D tilt helper */
+.tilt-perspective { perspective: 1200px; }
+.tilt-img { transition: transform 350ms cubic-bezier(.2,.8,.2,1); transform-origin: center; }
+.tilt-container:hover .tilt-img { transform: rotateY(6deg) rotateX(2deg) scale(1.03); }
