@@ -25,15 +25,15 @@ export default function Support() {
     return matchesSearch && matchesStatus && matchesPriority;
   });
 
-  const handleAssign = (ticketId) => {
+  const handleAssign = (_ticketId) => {
     toast.success('Ticket assigned successfully');
   };
 
-  const handleResolve = (ticketId) => {
+  const handleResolve = (_ticketId) => {
     toast.success('Ticket marked as resolved');
   };
 
-  const handleAcknowledgeAlert = (alertId) => {
+  const handleAcknowledgeAlert = (_alertId) => {
     toast.success('Alert acknowledged');
   };
 

@@ -2,6 +2,13 @@
 import { useState } from 'react';
 import { Search, Edit, Trash2, Ban, CheckCircle, MoreVertical, Filter } from 'lucide-react';
 import { users } from '../../data/user';
+
+// Precompute user status and lastLogin to avoid impure calls during render
+const usersWithStatusStatic = users.map(user => ({
+  ...user,
+  status: Math.random() > 0.9 ? 'suspended' : 'active',
+  lastLogin: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
+}));
 import Button from '../../components/Shared/Button';
 import Input, { Select } from '../../components/Shared/Input';
 import Badge from '../../components/Shared/Badge';
@@ -13,12 +20,8 @@ export default function Users() {
   const [roleFilter, setRoleFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
 
-  // In real app, users would have a status field
-  const usersWithStatus = users.map(user => ({
-    ...user,
-    status: Math.random() > 0.9 ? 'suspended' : 'active',
-    lastLogin: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
-  }));
+  // Use precomputed users list
+  const usersWithStatus = usersWithStatusStatic;
 
   const filteredUsers = usersWithStatus.filter(user => {
     const matchesSearch = 

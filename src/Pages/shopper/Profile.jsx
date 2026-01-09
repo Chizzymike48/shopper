@@ -39,7 +39,7 @@ export default function Profile() {
     e.preventDefault();
     if (!cardNumber.trim()) return toast.error('Enter card number');
     const last4 = cardNumber.replace(/\s+/g, '').slice(-4);
-    const method = addPaymentMethod({ label: cardLabel || `Card •••• ${last4}`, last4 });
+    addPaymentMethod({ label: cardLabel || `Card •••• ${last4}`, last4 });
     setCardNumber('');
     setCardLabel('');
     toast.success('Payment method saved');

@@ -61,7 +61,7 @@ const usePromoStore = create((set, get) => ({
   },
 
   // Calculate discount
-  calculateDiscount: (subtotal, shipping) => {
+  calculateDiscount: (subtotal, _shipping) => {
     const { appliedPromo } = get();
 
     if (!appliedPromo) {

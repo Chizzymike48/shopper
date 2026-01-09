@@ -24,7 +24,6 @@ export default function ProductDetail() {
   const navigate = useNavigate();
   const product = getProductBySlug(slug);
 
-  const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState(product?.variants?.[0] || null);
   const [activeTab, setActiveTab] = useState('description');
@@ -71,7 +70,7 @@ export default function ProductDetail() {
     try {
       sendOrderEmail(customer.email || 'guest@example.com', { id: order.id, items: order.items, total: order.totals.total });
     } catch (err) {
-      // eslint-disable-next-line no-console
+       
       console.warn('Mock email failed', err);
     }
     navigate(`/order-success/${order.id}`);
@@ -88,7 +87,7 @@ export default function ProductDetail() {
     try {
       sendOrderEmail(customer.email || 'guest@example.com', { id: order.id, items: order.items, total: order.totals.total });
     } catch (err) {
-      // eslint-disable-next-line no-console
+       
       console.warn('Mock email failed', err);
     }
     navigate(`/order-success/${order.id}`);

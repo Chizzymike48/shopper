@@ -10,6 +10,8 @@ import Button from '../../components/Shared/Button';
 export default function RecentlyViewed() {
   const { items: recentIds } = useRecentlyViewedStore();
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
   const scrollContainerRef = useRef(null);
 
   const numericRecentIds = (recentIds || []).map(id => Number(id));
@@ -35,18 +37,17 @@ export default function RecentlyViewed() {
 
     const handleScrollUpdate = () => {
       setScrollPosition(container.scrollLeft);
+      setCanScrollLeft(container.scrollLeft > 0);
+      setCanScrollRight(container.scrollLeft < container.scrollWidth - container.clientWidth);
     };
 
     container.addEventListener('scroll', handleScrollUpdate);
+    // initial update
+    handleScrollUpdate();
     return () => container.removeEventListener('scroll', handleScrollUpdate);
   }, []);
 
   if (recentProducts.length === 0) return null;
-
-  const canScrollLeft = scrollPosition > 0;
-  const canScrollRight = scrollContainerRef.current 
-    ? scrollPosition < scrollContainerRef.current.scrollWidth - scrollContainerRef.current.clientWidth
-    : false;
 
   return (
     <div className="bg-gray-50 py-12">

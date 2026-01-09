@@ -88,7 +88,7 @@ export default function Cart() {
     try {
       sendOrderEmail(customer.email || 'guest@example.com', { id: order.id, items: order.items, total: order.totals.total });
     } catch (err) {
-      // eslint-disable-next-line no-console
+       
       console.warn('Mock email failed', err);
     }
     navigate(`/order-success/${order.id}`);

@@ -1,15 +1,11 @@
 // src/pages/admin/MockEmails.jsx
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Card from '../../components/Shared/Card';
 import Button from '../../components/Shared/Button';
 import { getMockEmails } from '../../utils/mockEmail';
 
 export default function MockEmails() {
-  const [emails, setEmails] = useState([]);
-
-  useEffect(() => {
-    setEmails(getMockEmails());
-  }, []);
+  const [emails, setEmails] = useState(() => getMockEmails());
 
   const handleClear = () => {
     localStorage.removeItem('mockEmails');

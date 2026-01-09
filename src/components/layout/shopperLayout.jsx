@@ -14,7 +14,7 @@ export default function ShopperLayout() {
   const [theme, setTheme] = useState(() => {
     try {
       return localStorage.getItem('theme') || 'light';
-    } catch (e) {
+    } catch {
       return 'light';
     }
   });
@@ -40,7 +40,7 @@ export default function ShopperLayout() {
     setTheme(next);
     try {
       localStorage.setItem('theme', next);
-    } catch (e) {}
+    } catch { /* ignore localStorage failures */ }
     if (next === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
@@ -55,7 +55,7 @@ export default function ShopperLayout() {
     } else {
       document.documentElement.classList.remove('dark');
     }
-  }, []);
+  }, [theme]);
 
   return (
     <div className="min-h-screen bg-gray-50">

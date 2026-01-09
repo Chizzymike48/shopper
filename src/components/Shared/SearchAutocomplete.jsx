@@ -1,5 +1,5 @@
 // src/components/shared/SearchAutocomplete.jsx
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { Search, TrendingUp, Clock, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { products } from '../../data/products';
@@ -28,10 +28,73 @@ const clearRecentSearches = () => {
   localStorage.setItem('recentSearches', JSON.stringify([]));
 };
 
+// Levenshtein distance for typo tolerance (module-level helper)
+const levenshteinDistance = (str1, str2) => {
+  const matrix = [];
+  for (let i = 0; i <= str2.length; i++) {
+    matrix[i] = [i];
+  }
+  for (let j = 0; j <= str1.length; j++) {
+    matrix[0][j] = j;
+  }
+  for (let i = 1; i <= str2.length; i++) {
+    for (let j = 1; j <= str1.length; j++) {
+      if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j] + 1
+        );
+      }
+    }
+  }
+  return matrix[str2.length][str1.length];
+};
+
+// Search with typo tolerance and synonyms (module-level)
+const searchProducts = (searchQuery) => {
+  if (!searchQuery.trim()) return [];
+
+  const lowerQuery = searchQuery.toLowerCase();
+  const words = lowerQuery.split(' ');
+  
+  // Expand query with synonyms
+  const expandedWords = words.flatMap(word => {
+    const syns = Object.entries(synonyms).find(([key, values]) => 
+      key === word || values.includes(word)
+    );
+    return syns ? [word, ...syns[1]] : [word];
+  });
+
+  const results = products.filter(product => {
+    const productText = `${product.name} ${product.description} ${product.tags.join(' ')}`.toLowerCase();
+    
+    // Exact match
+    if (productText.includes(lowerQuery)) return true;
+
+    // Typo tolerance (max 2 character difference)
+    for (const word of expandedWords) {
+      const productWords = productText.split(' ');
+      for (const pWord of productWords) {
+        if (pWord.length > 3 && levenshteinDistance(word, pWord) <= 2) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  });
+
+  return results.slice(0, 5);
+};
+
 export default function SearchAutocomplete({ className = '' }) {
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
-  const [suggestions, setSuggestions] = useState([]);
+   
+const suggestions = useMemo(() => query.trim() ? searchProducts(query) : [], [query]);
   const [recentSearches, setRecentSearches] = useState(getRecentSearches());
   const wrapperRef = useRef(null);
   const navigate = useNavigate();
@@ -47,76 +110,8 @@ export default function SearchAutocomplete({ className = '' }) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Levenshtein distance for typo tolerance
-  const levenshteinDistance = (str1, str2) => {
-    const matrix = [];
-    for (let i = 0; i <= str2.length; i++) {
-      matrix[i] = [i];
-    }
-    for (let j = 0; j <= str1.length; j++) {
-      matrix[0][j] = j;
-    }
-    for (let i = 1; i <= str2.length; i++) {
-      for (let j = 1; j <= str1.length; j++) {
-        if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
-          matrix[i][j] = matrix[i - 1][j - 1];
-        } else {
-          matrix[i][j] = Math.min(
-            matrix[i - 1][j - 1] + 1,
-            matrix[i][j - 1] + 1,
-            matrix[i - 1][j] + 1
-          );
-        }
-      }
-    }
-    return matrix[str2.length][str1.length];
-  };
 
-  // Search with typo tolerance and synonyms
-  const searchProducts = (searchQuery) => {
-    if (!searchQuery.trim()) return [];
 
-    const lowerQuery = searchQuery.toLowerCase();
-    const words = lowerQuery.split(' ');
-    
-    // Expand query with synonyms
-    const expandedWords = words.flatMap(word => {
-      const syns = Object.entries(synonyms).find(([key, values]) => 
-        key === word || values.includes(word)
-      );
-      return syns ? [word, ...syns[1]] : [word];
-    });
-
-    const results = products.filter(product => {
-      const productText = `${product.name} ${product.description} ${product.tags.join(' ')}`.toLowerCase();
-      
-      // Exact match
-      if (productText.includes(lowerQuery)) return true;
-
-      // Typo tolerance (max 2 character difference)
-      for (const word of expandedWords) {
-        const productWords = productText.split(' ');
-        for (const pWord of productWords) {
-          if (pWord.length > 3 && levenshteinDistance(word, pWord) <= 2) {
-            return true;
-          }
-        }
-      }
-
-      return false;
-    });
-
-    return results.slice(0, 5);
-  };
-
-  useEffect(() => {
-    if (query.trim()) {
-      const results = searchProducts(query);
-      setSuggestions(results);
-    } else {
-      setSuggestions([]);
-    }
-  }, [query]);
 
   const handleSearch = (searchQuery) => {
     if (searchQuery.trim()) {

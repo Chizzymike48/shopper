@@ -10,7 +10,7 @@ import toast from 'react-hot-toast';
 
 export default function Products() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [showAddModal, setShowAddModal] = useState(false);
+  const [, setShowAddModal] = useState(false);
 
   const filteredProducts = products.filter(p =>
     p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||

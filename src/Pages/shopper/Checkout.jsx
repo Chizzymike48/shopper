@@ -103,7 +103,7 @@ export default function Checkout() {
       try {
         sendOrderEmail(formData.email || 'guest@example.com', order);
       } catch (err) {
-        // eslint-disable-next-line no-console
+         
         console.warn('Failed to send mock email', err);
       }
 

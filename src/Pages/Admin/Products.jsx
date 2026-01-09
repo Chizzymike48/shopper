@@ -2,6 +2,13 @@
 import { useState } from 'react';
 import { Search, Eye, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
 import { products } from '../../data/products';
+
+// Precomputed review status to avoid calling impure functions during render
+const productsWithReview = products.map(p => ({
+  ...p,
+  reviewStatus: Math.random() > 0.8 ? 'pending' : 'approved',
+  reportCount: Math.floor(Math.random() * 5),
+}));
 import Button from '../../components/Shared/Button';
 import Input, { Select } from '../../components/Shared/Input';
 import Badge from '../../components/Shared/Badge';
@@ -14,11 +21,8 @@ export default function Products() {
   const [statusFilter, setStatusFilter] = useState('all');
 
   // Add review status to products
-  const productsWithReview = products.map(p => ({
-    ...p,
-    reviewStatus: Math.random() > 0.8 ? 'pending' : 'approved',
-    reportCount: Math.floor(Math.random() * 5),
-  }));
+  // (moved to module-level precomputed `productsWithReview`)
+  // const productsWithReview = productsWithReview; // (module-level)
 
   const filteredProducts = productsWithReview.filter(product => {
     const matchesSearch = 
