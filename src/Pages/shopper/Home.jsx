@@ -10,7 +10,7 @@ import QuickViewModal from '../../components/Shared/QuickViewModal';
 import ProductPreview from '../../components/Shared/ProductPreview';
 import { useState } from 'react';
 import ProductRecommendations from './ProductRecommendations';
-import RecentlyViewed from './recentlyViewed';
+import RecentlyViewed from './RecentlyViewed';
 import useCartStore from '../../stores/cartStore';
 import useWishlistStore from '../../stores/WishlistStore';
 import toast from 'react-hot-toast';
