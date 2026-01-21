@@ -227,7 +227,7 @@ export const userActivity = [
 
 // Platform Settings
 export const platformSettings = {
-  siteName: 'ShopHub',
+  siteName: 'Thecla Store',
   siteUrl: 'https://shophub.com',
   supportEmail: 'support@shophub.com',
   maintenanceMode: false,

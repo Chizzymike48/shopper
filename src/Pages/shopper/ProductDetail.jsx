@@ -11,6 +11,7 @@ import ProductReviews from '../../Pages/shopper/ProductReviews';
 import ProductQA from '../../Pages/shopper/ProductQA';
 import ShippingEstimator from '../../Pages/shopper/ShippingEstimator';
 import ProductRecommendations from '../../Pages/shopper/ProductRecommendations';
+import ImageWithSkeleton from '../../components/Shared/ImageWithSkeleton';
 import useCartStore from '../../stores/cartStore';
 import useWishlistStore from '../../stores/WishlistStore';
 import useRecentlyViewedStore from '../../stores/recentlyViewedStore';
@@ -142,9 +143,9 @@ export default function ProductDetail() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-gray-600 mb-6">
-        <Link to="/" className="hover:text-blue-600">Home</Link>
+        <Link to="/" className="hover:text-emerald-700">Home</Link>
         <span>/</span>
-        <Link to="/products" className="hover:text-blue-600">Products</Link>
+        <Link to="/products" className="hover:text-emerald-700">Products</Link>
         <span>/</span>
         <span className="text-gray-900 font-medium">{product.name}</span>
       </div>
@@ -237,7 +238,7 @@ export default function ProductDetail() {
                     onClick={() => setSelectedVariant(variant)}
                     className={`px-4 py-3 border-2 rounded-lg text-sm font-medium transition-colors ${
                       selectedVariant?.id === variant.id
-                        ? 'border-blue-600 bg-blue-50 text-blue-600'
+                        ? 'border-emerald-600 bg-emerald-50 text-emerald-700'
                         : 'border-gray-300 text-gray-700 hover:border-gray-400'
                     }`}
                     disabled={variant.stock === 0}
@@ -321,7 +322,7 @@ export default function ProductDetail() {
               size="lg"
               variant="outline"
               onClick={handleToggleCompare}
-              className={isComparing ? 'text-blue-500 border-blue-500' : ''}
+              className={isComparing ? 'text-emerald-600 border-emerald-600' : ''}
               title="Compare"
             >
               <BarChart3 className="w-5 h-5" />
@@ -331,15 +332,15 @@ export default function ProductDetail() {
           {/* Features */}
           <div className="grid grid-cols-3 gap-4 py-6 border-t border-gray-200">
             <div className="text-center">
-              <Truck className="w-8 h-8 text-blue-600 mx-auto mb-2" />
+              <Truck className="w-8 h-8 text-emerald-600 mx-auto mb-2" />
               <p className="text-sm text-gray-600">Free Shipping</p>
             </div>
             <div className="text-center">
-              <Shield className="w-8 h-8 text-green-600 mx-auto mb-2" />
+              <Shield className="w-8 h-8 text-amber-600 mx-auto mb-2" />
               <p className="text-sm text-gray-600">Secure Payment</p>
             </div>
             <div className="text-center">
-              <RefreshCw className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+              <RefreshCw className="w-8 h-8 text-sky-600 mx-auto mb-2" />
               <p className="text-sm text-gray-600">Easy Returns</p>
             </div>
           </div>
@@ -361,7 +362,7 @@ export default function ProductDetail() {
                 onClick={() => setActiveTab(tab)}
                 className={`pb-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab
-                    ? 'border-blue-600 text-blue-600'
+                    ? 'border-emerald-600 text-emerald-700'
                     : 'border-transparent text-gray-600 hover:text-gray-900'
                 }`}
               >
@@ -429,10 +430,10 @@ export default function ProductDetail() {
               <Card key={relatedProduct.id} hover className="overflow-hidden p-0">
                 <Link to={`/products/${relatedProduct.slug}`}>
                   <div className="aspect-square overflow-hidden bg-gray-100">
-                    <img
+                    <ImageWithSkeleton
                       src={relatedProduct.images[0]}
                       alt={relatedProduct.name}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full"
                     />
                   </div>
                   <div className="p-4">

@@ -34,8 +34,8 @@ export default function OrderSuccess() {
           <h2 className="text-xl font-bold text-gray-900 mb-4">What's Next?</h2>
           <div className="space-y-4">
             <div className="flex gap-4">
-              <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <FileText className="w-5 h-5 text-blue-600" />
+              <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <FileText className="w-5 h-5 text-emerald-700" />
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900 mb-1">Order Confirmation</h3>
@@ -46,8 +46,8 @@ export default function OrderSuccess() {
             </div>
 
             <div className="flex gap-4">
-              <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                <Package className="w-5 h-5 text-purple-600" />
+              <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <Package className="w-5 h-5 text-amber-700" />
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900 mb-1">Processing</h3>
@@ -91,7 +91,7 @@ export default function OrderSuccess() {
         <div className="mt-8 pt-8 border-t border-gray-200">
           <p className="text-sm text-gray-600">
             Need help? Contact our{' '}
-            <a href="#" className="text-blue-600 hover:underline">
+            <a href="#" className="text-emerald-600 hover:underline">
               customer support
             </a>
           </p>

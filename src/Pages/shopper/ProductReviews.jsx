@@ -180,7 +180,7 @@ export default function ProductReviews({ productRating, totalReviews }) {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-200"
           >
             <option value="helpful">Most Helpful</option>
             <option value="recent">Most Recent</option>
@@ -248,7 +248,7 @@ export default function ProductReviews({ productRating, totalReviews }) {
                       <button
                         key={idx}
                         onClick={() => setExpandedImages({ review, imageIndex: idx })}
-                        className="w-20 h-20 rounded-lg overflow-hidden border border-gray-200 hover:border-blue-500 transition-colors"
+                        className="w-20 h-20 rounded-lg overflow-hidden border border-gray-200 hover:border-emerald-500 transition-colors"
                       >
                         <img
                           src={image}

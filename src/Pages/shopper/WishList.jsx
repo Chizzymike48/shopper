@@ -6,6 +6,7 @@ import useWishlistStore from '../../stores/WishlistStore';
 import useCartStore from '../../stores/cartStore';
 import Card from '../../components/Shared/Card';
 import Button from '../../components/Shared/Button';
+import ImageWithSkeleton from '../../components/Shared/ImageWithSkeleton';
 import toast from 'react-hot-toast';
 
 export default function Wishlist() {
@@ -63,10 +64,10 @@ export default function Wishlist() {
             {/* Product Image */}
             <Link to={`/products/${product.slug}`}>
               <div className="relative aspect-square overflow-hidden bg-gray-100">
-                <img
+                <ImageWithSkeleton
                   src={product.images[0]}
                   alt={product.name}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full"
                 />
                 {product.compareAtPrice && (
                   <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-md text-sm font-semibold">
@@ -79,7 +80,7 @@ export default function Wishlist() {
             {/* Product Info */}
             <div className="p-4">
               <Link to={`/products/${product.slug}`}>
-                <h3 className="font-semibold text-gray-900 mb-2 hover:text-blue-600 line-clamp-2">
+                <h3 className="font-semibold text-gray-900 mb-2 hover:text-emerald-700 line-clamp-2">
                   {product.name}
                 </h3>
               </Link>

@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, useMemo } from 'react';
 import { Search, TrendingUp, Clock, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { products } from '../../data/products';
+import ImageWithSkeleton from './ImageWithSkeleton';
 
 // Typo tolerance and synonym support
 const synonyms = {
@@ -158,16 +159,16 @@ const suggestions = useMemo(() => query.trim() ? searchProducts(query) : [], [qu
             onChange={(e) => setQuery(e.target.value)}
             onFocus={() => setIsOpen(true)}
             placeholder="Search products..."
-            className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-10 pr-4 py-2.5 border border-slate-200 rounded-full bg-white/80 backdrop-blur focus:outline-none focus:ring-2 focus:ring-emerald-200 focus:border-transparent"
           />
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
           {query && (
             <button
               type="button"
               onClick={() => setQuery('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded"
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-slate-100 rounded-full"
             >
-              <X className="w-4 h-4 text-gray-400" />
+              <X className="w-4 h-4 text-slate-400" />
             </button>
           )}
         </div>
@@ -175,7 +176,7 @@ const suggestions = useMemo(() => query.trim() ? searchProducts(query) : [], [qu
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute top-full mt-2 w-full bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-96 overflow-y-auto">
+        <div className="absolute top-full mt-2 w-full bg-white/95 backdrop-blur rounded-2xl shadow-xl border border-slate-200 z-50 max-h-96 overflow-y-auto">
           {/* Product Suggestions */}
           {suggestions.length > 0 && (
             <div className="p-2">
@@ -186,18 +187,18 @@ const suggestions = useMemo(() => query.trim() ? searchProducts(query) : [], [qu
                 <button
                   key={product.id}
                   onClick={() => handleSuggestionClick(product)}
-                  className="w-full flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg text-left"
+                  className="w-full flex items-center gap-3 p-2 hover:bg-slate-50 rounded-xl text-left"
                 >
-                  <img
+                  <ImageWithSkeleton
                     src={product.images[0]}
                     alt={product.name}
-                    className="w-12 h-12 rounded object-cover bg-gray-100"
+                    className="w-12 h-12 rounded bg-gray-100"
                   />
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900 truncate">
+                    <p className="text-sm font-medium text-slate-900 truncate">
                       {product.name}
                     </p>
-                    <p className="text-sm text-gray-600">${product.price}</p>
+                    <p className="text-sm text-slate-600">${product.price}</p>
                   </div>
                 </button>
               ))}
@@ -206,7 +207,7 @@ const suggestions = useMemo(() => query.trim() ? searchProducts(query) : [], [qu
 
           {/* Recent Searches */}
           {!query && recentSearches.length > 0 && (
-            <div className="p-2 border-t border-gray-100">
+            <div className="p-2 border-t border-slate-100">
               <div className="flex items-center justify-between px-3 py-2">
                 <p className="text-xs font-semibold text-gray-500 uppercase flex items-center gap-1">
                   <Clock className="w-3 h-3" />
@@ -223,10 +224,10 @@ const suggestions = useMemo(() => query.trim() ? searchProducts(query) : [], [qu
                 <button
                   key={index}
                   onClick={() => handleRecentClick(recent)}
-                  className="w-full flex items-center gap-2 p-2 hover:bg-gray-50 rounded-lg text-left"
+                  className="w-full flex items-center gap-2 p-2 hover:bg-slate-50 rounded-xl text-left"
                 >
-                  <Search className="w-4 h-4 text-gray-400" />
-                  <span className="text-sm text-gray-700">{recent}</span>
+                  <Search className="w-4 h-4 text-slate-400" />
+                  <span className="text-sm text-slate-700">{recent}</span>
                 </button>
               ))}
             </div>
@@ -234,7 +235,7 @@ const suggestions = useMemo(() => query.trim() ? searchProducts(query) : [], [qu
 
           {/* Popular Searches */}
           {!query && (
-            <div className="p-2 border-t border-gray-100">
+            <div className="p-2 border-t border-slate-100">
               <p className="text-xs font-semibold text-gray-500 uppercase px-3 py-2 flex items-center gap-1">
                 <TrendingUp className="w-3 h-3" />
                 Popular Searches
@@ -243,10 +244,10 @@ const suggestions = useMemo(() => query.trim() ? searchProducts(query) : [], [qu
                 <button
                   key={index}
                   onClick={() => handleRecentClick(popular)}
-                  className="w-full flex items-center gap-2 p-2 hover:bg-gray-50 rounded-lg text-left"
+                  className="w-full flex items-center gap-2 p-2 hover:bg-slate-50 rounded-xl text-left"
                 >
-                  <TrendingUp className="w-4 h-4 text-gray-400" />
-                  <span className="text-sm text-gray-700">{popular}</span>
+                  <TrendingUp className="w-4 h-4 text-slate-400" />
+                  <span className="text-sm text-slate-700">{popular}</span>
                 </button>
               ))}
             </div>
@@ -254,7 +255,7 @@ const suggestions = useMemo(() => query.trim() ? searchProducts(query) : [], [qu
 
           {/* No Results */}
           {query && suggestions.length === 0 && (
-            <div className="p-8 text-center text-gray-500">
+            <div className="p-8 text-center text-slate-500">
               <p className="text-sm">No products found for "{query}"</p>
               <p className="text-xs mt-1">Try different keywords</p>
             </div>

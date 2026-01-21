@@ -77,7 +77,10 @@ export default function Login() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-block">
-            <span className="text-4xl font-bold text-blue-600">ShopHub</span>
+            <span className="text-4xl font-bold font-display tracking-tight">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 via-teal-500 to-amber-400">Thecla</span>
+              <span className="ml-2 text-slate-900">Store</span>
+            </span>
           </Link>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">
             Welcome Back
@@ -125,11 +128,11 @@ export default function Login() {
                   name="remember"
                   checked={formData.remember}
                   onChange={handleChange}
-                  className="w-4 h-4 text-blue-600 rounded"
+                  className="w-4 h-4 text-emerald-600 rounded"
                 />
                 <span className="text-sm text-gray-700">Remember me</span>
               </label>
-              <a href="#" className="text-sm text-blue-600 hover:underline">
+              <a href="#" className="text-sm text-emerald-600 hover:underline">
                 Forgot password?
               </a>
             </div>
@@ -150,7 +153,7 @@ export default function Login() {
           <div className="mt-6 pt-6 border-t border-gray-200">
             <p className="text-sm text-gray-600 mb-3">Demo Credentials:</p>
             <div className="bg-gray-50 rounded-lg p-3 text-sm space-y-1">
-              <p><strong>Shopper:</strong> john@example.com / password123</p>
+              <p><strong>Thecla Store:</strong> john@example.com / password123</p>
               <p><strong>Merchant:</strong> merchant@example.com / password123</p>
             </div>
           </div>
@@ -159,7 +162,7 @@ export default function Login() {
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               Don't have an account?{' '}
-              <Link to="/register" className="text-blue-600 hover:underline font-semibold">
+              <Link to="/register" className="text-emerald-600 hover:underline font-semibold">
                 Sign up
               </Link>
             </p>

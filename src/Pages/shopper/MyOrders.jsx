@@ -3,6 +3,8 @@ import { getUserOrders } from '../../data/orders';
 import useAuthStore from '../../stores/authStore';
 import Badge from '../../components/Shared/Badge';
 import Button from '../../components/Shared/Button';
+import Card from '../../components/Shared/Card';
+import ImageWithSkeleton from '../../components/Shared/ImageWithSkeleton';
 
 const statusVariants = {
   pending: 'warning',
@@ -68,10 +70,10 @@ export default function MyOrders() {
               {order.items.map((item, index) => (
                 <div key={index} className="flex gap-4">
                   <div className="w-20 h-20 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
-                    <img
+                    <ImageWithSkeleton
                       src={item.image}
                       alt={item.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full"
                     />
                   </div>
                   <div className="flex-1">

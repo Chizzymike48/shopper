@@ -6,6 +6,7 @@ import useRecentlyViewedStore from '../../stores/recentlyViewedStore';
 import useCartStore from '../../stores/cartStore';
 import Card from '../../components/Shared/Card';
 import Button from '../../components/Shared/Button';
+import ImageWithSkeleton from '../../components/Shared/ImageWithSkeleton';
 import toast from 'react-hot-toast';
 
 export default function ProductRecommendations({ currentProductId = null, limit = 4 }) {
@@ -88,8 +89,8 @@ export default function ProductRecommendations({ currentProductId = null, limit 
   return (
     <div className="py-12">
       <div className="flex items-center gap-2 mb-6">
-        <Sparkles className="w-6 h-6 text-blue-600" />
-        <h2 className="text-2xl font-bold text-gray-900">Recommended For You</h2>
+        <Sparkles className="w-6 h-6 text-emerald-600" />
+        <h2 className="text-2xl font-bold text-slate-900">Recommended For You</h2>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -97,10 +98,10 @@ export default function ProductRecommendations({ currentProductId = null, limit 
           <Card key={product.id} hover className="overflow-hidden p-0">
             <Link to={`/products/${product.slug}`}>
               <div className="relative aspect-square overflow-hidden bg-gray-100">
-                <img
+                <ImageWithSkeleton
                   src={product.images[0]}
                   alt={product.name}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full"
                 />
                 {product.compareAtPrice && (
                   <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-md text-sm font-semibold">
@@ -112,7 +113,7 @@ export default function ProductRecommendations({ currentProductId = null, limit 
 
             <div className="p-4">
               <Link to={`/products/${product.slug}`}>
-                <h3 className="font-semibold text-gray-900 mb-2 hover:text-blue-600 line-clamp-2">
+                <h3 className="font-semibold text-slate-900 mb-2 hover:text-emerald-700 line-clamp-2">
                   {product.name}
                 </h3>
               </Link>
@@ -130,17 +131,17 @@ export default function ProductRecommendations({ currentProductId = null, limit 
                     />
                   ))}
                 </div>
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-slate-600">
                   ({product.reviews})
                 </span>
               </div>
 
               <div className="flex items-center gap-2 mb-4">
-                <span className="text-xl font-bold text-gray-900">
+                <span className="text-xl font-bold text-slate-900">
                   ${product.price}
                 </span>
                 {product.compareAtPrice && (
-                  <span className="text-sm text-gray-500 line-through">
+                  <span className="text-sm text-slate-500 line-through">
                     ${product.compareAtPrice}
                   </span>
                 )}

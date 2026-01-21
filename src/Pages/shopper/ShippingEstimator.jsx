@@ -137,7 +137,7 @@ export default function ShippingEstimator({ productPrice = 0 }) {
           {/* Location Display */}
           <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
             <div className="flex items-center gap-2">
-              <MapPin className="w-5 h-5 text-blue-600" />
+              <MapPin className="w-5 h-5 text-emerald-600" />
               <div>
                 <p className="text-sm font-medium text-gray-900">{estimate.location}</p>
                 <p className="text-xs text-gray-600">ZIP: {estimate.zipCode}</p>
@@ -145,7 +145,7 @@ export default function ShippingEstimator({ productPrice = 0 }) {
             </div>
             <button
               onClick={handleReset}
-              className="text-sm text-blue-600 hover:text-blue-700 font-medium"
+              className="text-sm text-emerald-600 hover:text-emerald-700 font-medium"
             >
               Change
             </button>
@@ -160,12 +160,12 @@ export default function ShippingEstimator({ productPrice = 0 }) {
               return (
                 <div
                   key={option.id}
-                  className="p-4 border border-gray-200 rounded-lg hover:border-blue-500 transition-colors cursor-pointer"
+                  className="p-4 border border-gray-200 rounded-lg hover:border-emerald-500 transition-colors cursor-pointer"
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-                        <Icon className="w-5 h-5 text-blue-600" />
+                      <div className="w-10 h-10 rounded-lg bg-emerald-100 flex items-center justify-center">
+                        <Icon className="w-5 h-5 text-emerald-600" />
                       </div>
                       <div>
                         <h4 className="font-semibold text-gray-900">{option.name}</h4>
@@ -202,8 +202,8 @@ export default function ShippingEstimator({ productPrice = 0 }) {
 
           {/* Free Shipping Message */}
           {productPrice < 50 && (
-            <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
-              <p className="text-sm text-blue-800">
+            <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-lg">
+              <p className="text-sm text-emerald-800">
                 💡 <strong>Tip:</strong> Add ${(50 - productPrice).toFixed(2)} more to your cart for free shipping!
               </p>
             </div>

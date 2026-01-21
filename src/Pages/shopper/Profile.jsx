@@ -54,8 +54,8 @@ export default function Profile() {
         <Card>
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <User className="w-6 h-6 text-blue-600" />
+              <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center">
+                <User className="w-6 h-6 text-emerald-700" />
               </div>
               <h2 className="text-xl font-bold text-gray-900">Personal Information</h2>
             </div>
@@ -145,12 +145,12 @@ export default function Profile() {
               {user.addresses.map((address) => (
                 <div
                   key={address.id}
-                  className="p-4 border border-gray-200 rounded-lg hover:border-blue-500 transition-colors"
+                  className="p-4 border border-gray-200 rounded-lg hover:border-emerald-500 transition-colors"
                 >
                   <div className="flex items-start justify-between">
                     <div>
                       {address.isDefault && (
-                        <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded mb-2">
+                        <span className="inline-block px-2 py-1 bg-emerald-100 text-emerald-800 text-xs font-semibold rounded mb-2">
                           Default
                         </span>
                       )}

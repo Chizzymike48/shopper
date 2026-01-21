@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Button from '../../components/Shared/Button';
 import Card from '../../components/Shared/Card';
 import Input from '../../components/Shared/Input';
+import ImageWithSkeleton from '../../components/Shared/ImageWithSkeleton';
 import useCartStore from '../../stores/cartStore';
 import useAuthStore from '../../stores/authStore';
 import { sendOrderEmail } from '../../utils/mockEmail';
@@ -129,10 +130,10 @@ export default function Cart() {
                       to={`/products/${item.product.slug}`}
                       className="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden bg-gray-100"
                     >
-                      <img
+                      <ImageWithSkeleton
                         src={item.product.images[0]}
                         alt={item.product.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full"
                       />
                     </Link>
 
@@ -140,7 +141,7 @@ export default function Cart() {
                     <div className="flex-1 min-w-0">
                       <Link
                         to={`/products/${item.product.slug}`}
-                        className="text-lg font-semibold text-gray-900 hover:text-blue-600 block mb-1"
+                        className="text-lg font-semibold text-gray-900 hover:text-emerald-700 block mb-1"
                       >
                         {item.product.name}
                       </Link>
@@ -198,7 +199,7 @@ export default function Cart() {
                       </button>
                       <button
                         onClick={() => handleSaveForLater(item)}
-                        className="text-blue-500 hover:text-blue-600 p-2"
+                        className="text-emerald-600 hover:text-emerald-700 p-2"
                         title="Save for later"
                       >
                         <Heart className="w-5 h-5" />
@@ -304,8 +305,8 @@ export default function Cart() {
               </div>
 
               {!freeShipping && subtotal < 50 && (
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                  <p className="text-sm text-blue-800">
+                <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3">
+                  <p className="text-sm text-emerald-800">
                     Add <strong>${(50 - subtotal).toFixed(2)}</strong> more for free shipping!
                   </p>
                 </div>

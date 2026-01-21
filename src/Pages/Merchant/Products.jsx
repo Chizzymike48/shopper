@@ -6,6 +6,7 @@ import Button from '../../components/Shared/Button';
 import Card from '../../components/Shared/Card';
 import Input from '../../components/Shared/Input';
 import Badge from '../../components/Shared/Badge';
+import ImageWithSkeleton from '../../components/Shared/ImageWithSkeleton';
 import toast from 'react-hot-toast';
 
 export default function Products() {
@@ -88,10 +89,10 @@ export default function Products() {
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
-                        <img
+                        <ImageWithSkeleton
                           src={product.images[0]}
                           alt={product.name}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full"
                         />
                       </div>
                       <div className="min-w-0">
