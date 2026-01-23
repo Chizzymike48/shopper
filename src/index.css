@@ -14,11 +14,11 @@
 body {
 	font-family: var(--font-sans);
 	color: #0f172a;
-	background-color: #f8fafc;
+	background-color: #fff7ed;
 	background-image:
-		radial-gradient(1200px 600px at 10% -10%, #e0f2fe 0%, transparent 55%),
-		radial-gradient(900px 500px at 90% -15%, #fef3c7 0%, transparent 50%),
-		linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+		radial-gradient(1200px 600px at 10% -10%, #fde68a 0%, transparent 55%),
+		radial-gradient(900px 500px at 90% -15%, #93c5fd 0%, transparent 50%),
+		linear-gradient(180deg, #fff7ed 0%, #ffe4e6 100%);
 }
 
 h1, h2, h3, h4, h5, h6, .font-display {
