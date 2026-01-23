@@ -22,3 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+/serve-dist-shopper.cjs
+/serve-dist-shopper.js
