@@ -39,6 +39,6 @@ try {
   if (s && Array.isArray(s.items) && s.items.some(id => typeof id === 'string')) {
     useRecentlyViewedStore.setState({ items: s.items.map(id => Number(id)) });
   }
-} catch (e) {
+} catch {
   // ignore
 }

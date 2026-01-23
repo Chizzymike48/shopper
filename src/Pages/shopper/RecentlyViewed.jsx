@@ -5,11 +5,13 @@ import { useState, useRef, useEffect } from 'react';
 import { products } from '../../data/products';
 import useRecentlyViewedStore from '../../stores/recentlyViewedStore';
 import Card from '../../components/Shared/Card';
-import Button from '../../components/Shared/Button';
+import ImageWithSkeleton from '../../components/Shared/ImageWithSkeleton';
 
 export default function RecentlyViewed() {
   const { items: recentIds } = useRecentlyViewedStore();
   const [scrollPosition, setScrollPosition] = useState(0);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
   const scrollContainerRef = useRef(null);
 
   const numericRecentIds = (recentIds || []).map(id => Number(id));
@@ -35,36 +37,35 @@ export default function RecentlyViewed() {
 
     const handleScrollUpdate = () => {
       setScrollPosition(container.scrollLeft);
+      setCanScrollLeft(container.scrollLeft > 0);
+      setCanScrollRight(container.scrollLeft < container.scrollWidth - container.clientWidth);
     };
 
     container.addEventListener('scroll', handleScrollUpdate);
+    // initial update
+    handleScrollUpdate();
     return () => container.removeEventListener('scroll', handleScrollUpdate);
   }, []);
 
   if (recentProducts.length === 0) return null;
 
-  const canScrollLeft = scrollPosition > 0;
-  const canScrollRight = scrollContainerRef.current 
-    ? scrollPosition < scrollContainerRef.current.scrollWidth - scrollContainerRef.current.clientWidth
-    : false;
-
   return (
-    <div className="bg-gray-50 py-12">
+    <div className="py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">Recently Viewed</h2>
+          <h2 className="text-2xl font-bold text-slate-900">Recently Viewed</h2>
           <div className="flex gap-2">
             <button
               onClick={() => handleScroll('left')}
               disabled={!canScrollLeft}
-              className="p-2 rounded-lg border border-gray-300 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="p-2 rounded-full border border-slate-200 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={() => handleScroll('right')}
               disabled={!canScrollRight}
-              className="p-2 rounded-lg border border-gray-300 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="p-2 rounded-full border border-slate-200 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -81,17 +82,17 @@ export default function RecentlyViewed() {
               <Card hover className="overflow-hidden p-0 h-full">
                 <Link to={`/products/${product.slug}`}>
                   <div className="relative aspect-square overflow-hidden bg-gray-100">
-                    <img
+                    <ImageWithSkeleton
                       src={product.images[0]}
                       alt={product.name}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full"
                     />
                   </div>
                 </Link>
 
                 <div className="p-4">
                   <Link to={`/products/${product.slug}`}>
-                    <h3 className="font-semibold text-gray-900 mb-2 hover:text-blue-600 line-clamp-2">
+                    <h3 className="font-semibold text-slate-900 mb-2 hover:text-emerald-700 line-clamp-2">
                       {product.name}
                     </h3>
                   </Link>
@@ -109,17 +110,17 @@ export default function RecentlyViewed() {
                         />
                       ))}
                     </div>
-                    <span className="text-sm text-gray-600">
+                    <span className="text-sm text-slate-600">
                       ({product.reviews})
                     </span>
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="text-xl font-bold text-gray-900">
+                    <span className="text-xl font-bold text-slate-900">
                       ${product.price}
                     </span>
                     {product.compareAtPrice && (
-                      <span className="text-sm text-gray-500 line-through">
+                      <span className="text-sm text-slate-500 line-through">
                         ${product.compareAtPrice}
                       </span>
                     )}

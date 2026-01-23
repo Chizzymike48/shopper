@@ -84,7 +84,10 @@ export default function Register() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-block">
-            <span className="text-4xl font-bold text-blue-600">ShopHub</span>
+            <span className="text-4xl font-bold font-display tracking-tight">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 via-teal-500 to-amber-400">Thecla</span>
+              <span className="ml-2 text-slate-900">Store</span>
+            </span>
           </Link>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">
             Create Account
@@ -168,15 +171,15 @@ export default function Register() {
                   name="agreeTerms"
                   checked={formData.agreeTerms}
                   onChange={handleChange}
-                  className="w-4 h-4 text-blue-600 rounded mt-0.5"
+                  className="w-4 h-4 text-emerald-600 rounded mt-0.5"
                 />
                 <span className="text-sm text-gray-700">
                   I agree to the{' '}
-                  <a href="#" className="text-blue-600 hover:underline">
+                  <a href="#" className="text-emerald-600 hover:underline">
                     Terms of Service
                   </a>
                   {' '}and{' '}
-                  <a href="#" className="text-blue-600 hover:underline">
+                  <a href="#" className="text-emerald-600 hover:underline">
                     Privacy Policy
                   </a>
                 </span>
@@ -202,7 +205,7 @@ export default function Register() {
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-600">
               Already have an account?{' '}
-              <Link to="/login" className="text-blue-600 hover:underline font-semibold">
+              <Link to="/login" className="text-emerald-600 hover:underline font-semibold">
                 Sign in
               </Link>
             </p>

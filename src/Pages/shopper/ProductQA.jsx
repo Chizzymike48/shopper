@@ -143,8 +143,8 @@ export default function ProductQA() {
             <Card key={qa.id}>
               {/* Question */}
               <div className="flex items-start gap-3 mb-4">
-                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-                  <MessageCircle className="w-4 h-4 text-blue-600" />
+                <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                  <MessageCircle className="w-4 h-4 text-emerald-700" />
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold text-gray-900 mb-1">Q: {qa.question}</h3>
@@ -198,7 +198,7 @@ export default function ProductQA() {
                 {totalAnswers > 1 && (
                   <button
                     onClick={() => toggleQA(qa.id)}
-                    className="text-blue-600 hover:text-blue-700 text-sm font-medium"
+                    className="text-emerald-600 hover:text-emerald-700 text-sm font-medium"
                   >
                     {isExpanded
                       ? 'Show less'
@@ -236,7 +236,7 @@ export default function ProductQA() {
                   onChange={(e) => setNewQuestion(e.target.value)}
                   placeholder="What would you like to know about this product?"
                   rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-200 resize-none"
                   required
                 />
                 <p className="text-sm text-gray-600 mt-2">

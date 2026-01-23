@@ -1,7 +1,7 @@
 // src/pages/shopper/ProductList.jsx
 import { useState, useMemo } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { Star, SlidersHorizontal, X, BarChart3 } from 'lucide-react';
+import { Star, SlidersHorizontal, X, BarChart3, Shirt, Footprints } from 'lucide-react';
 import { products, categories } from '../../data/products';
 import Button from '../../components/Shared/Button';
 import Card from '../../components/Shared/Card';
@@ -16,6 +16,7 @@ import toast from 'react-hot-toast';
 export default function ProductList() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
+  const [hiddenProductIds, setHiddenProductIds] = useState([]);
   
   // Get filters from URL
   const categoryFilter = searchParams.get('category') || '';
@@ -27,6 +28,13 @@ export default function ProductList() {
   const { addItem } = useCartStore();
   const { toggleWishlist, isInWishlist } = useWishlistStore();
   const { toggleCompare, isInCompare } = useCompareStore();
+
+  const categoryMeta = {
+    'mens-clothing': { icon: Shirt },
+    'womens-clothing': { icon: Shirt },
+    'mens-shoes': { icon: Footprints },
+    'womens-shoes': { icon: Footprints },
+  };
 
   // Filter and sort products
   const filteredProducts = useMemo(() => {
@@ -76,6 +84,11 @@ export default function ProductList() {
     return filtered;
   }, [categoryFilter, searchQuery, sortBy, minPrice, maxPrice]);
 
+  const visibleProducts = useMemo(
+    () => filteredProducts.filter((product) => !hiddenProductIds.includes(product.id)),
+    [filteredProducts, hiddenProductIds]
+  );
+
   const handleFilterChange = (key, value) => {
     const newParams = new URLSearchParams(searchParams);
     if (value) {
@@ -119,6 +132,9 @@ export default function ProductList() {
   };
 
   const activeFiltersCount = [categoryFilter, searchQuery, minPrice, maxPrice].filter(Boolean).length;
+  const handleHideProduct = (productId) => {
+    setHiddenProductIds((prev) => (prev.includes(productId) ? prev : [...prev, productId]));
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -127,7 +143,7 @@ export default function ProductList() {
         <aside className="hidden lg:block lg:w-64 flex-shrink-0">
           <div className="sticky top-24">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+              <h2 className="text-lg font-semibold text-slate-900">Filters</h2>
               {activeFiltersCount > 0 && (
                 <Button variant="ghost" size="sm" onClick={clearFilters}>
                   Clear All
@@ -137,7 +153,7 @@ export default function ProductList() {
 
             {/* Category Filter */}
             <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-900 mb-3">Category</h3>
+              <h3 className="text-sm font-semibold text-slate-900 mb-3">Category</h3>
               <div className="space-y-2">
                 <label className="flex items-center">
                   <input
@@ -145,44 +161,48 @@ export default function ProductList() {
                     name="category"
                     checked={!categoryFilter}
                     onChange={() => handleFilterChange('category', '')}
-                    className="w-4 h-4 text-blue-600"
+                    className="w-4 h-4 text-emerald-600"
                   />
-                  <span className="ml-2 text-sm text-gray-700">All Categories</span>
+                  <span className="ml-2 text-sm text-slate-700">All Categories</span>
                 </label>
-                {categories.map((cat) => (
-                  <label key={cat.id} className="flex items-center">
-                    <input
-                      type="radio"
-                      name="category"
-                      checked={categoryFilter === cat.slug}
-                      onChange={() => handleFilterChange('category', cat.slug)}
-                      className="w-4 h-4 text-blue-600"
-                    />
-                    <span className="ml-2 text-sm text-gray-700">
-                      {cat.icon} {cat.name}
-                    </span>
-                  </label>
-                ))}
+                {categories.map((cat) => {
+                  const Icon = categoryMeta[cat.slug]?.icon;
+                  return (
+                    <label key={cat.id} className="flex items-center">
+                      <input
+                        type="radio"
+                        name="category"
+                        checked={categoryFilter === cat.slug}
+                        onChange={() => handleFilterChange('category', cat.slug)}
+                        className="w-4 h-4 text-emerald-600"
+                      />
+                      <span className="ml-2 text-sm text-slate-700 flex items-center gap-2">
+                        {Icon && <Icon className="w-4 h-4 text-slate-500" />}
+                        {cat.name}
+                      </span>
+                    </label>
+                  );
+                })}
               </div>
             </div>
 
             {/* Price Filter */}
             <div className="mb-6">
-              <h3 className="text-sm font-semibold text-gray-900 mb-3">Price Range</h3>
+              <h3 className="text-sm font-semibold text-slate-900 mb-3">Price Range</h3>
               <div className="space-y-3">
                 <input
                   type="number"
                   placeholder="Min"
                   value={minPrice}
                   onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm"
                 />
                 <input
                   type="number"
                   placeholder="Max"
                   value={maxPrice}
                   onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-lg text-sm"
                 />
               </div>
             </div>
@@ -194,15 +214,15 @@ export default function ProductList() {
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-1">
+              <h1 className="text-2xl font-bold text-slate-900 mb-1">
                 {categoryFilter 
                   ? categories.find(c => c.slug === categoryFilter)?.name 
                   : searchQuery 
                   ? `Search results for "${searchQuery}"`
                   : 'All Products'}
               </h1>
-              <p className="text-sm text-gray-600">
-                {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'} found
+              <p className="text-sm text-slate-600">
+                {visibleProducts.length} {visibleProducts.length === 1 ? 'product' : 'products'} found
               </p>
             </div>
 
@@ -216,7 +236,7 @@ export default function ProductList() {
               >
                 Filters
                 {activeFiltersCount > 0 && (
-                  <span className="ml-1 bg-blue-600 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">
+                  <span className="ml-1 bg-emerald-600 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">
                     {activeFiltersCount}
                   </span>
                 )}
@@ -239,7 +259,7 @@ export default function ProductList() {
           </div>
 
           {/* Products Grid */}
-          {filteredProducts.length === 0 ? (
+          {visibleProducts.length === 0 ? (
             <Card className="text-center py-12">
               <p className="text-gray-600 mb-4">No products found matching your criteria.</p>
               <Button variant="outline" onClick={clearFilters}>
@@ -248,19 +268,24 @@ export default function ProductList() {
             </Card>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProducts.map((product) => (
+              {visibleProducts.map((product) => (
                 <Card key={product.id} hover className="overflow-hidden p-0 tilt-perspective group">
                   {/* Product Image */}
-                  <Link to={`/products/${product.slug}`}>
+                  <Link to={`/products/${product.slug}`} className="block">
                     <div className="relative aspect-square overflow-hidden bg-gray-100 tilt-container transform transition-transform duration-200 hover:scale-105">
-                      <ImageWithSkeleton src={product.images[0]} alt={product.name} className="w-full h-full" />
-                    </div>
+                      <ImageWithSkeleton
+                        src={product.images[0]}
+                        alt={product.name}
+                        className="w-full h-full"
+                        onImageError={() => handleHideProduct(product.id)}
+                      />
                       {product.compareAtPrice && (
                         <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-md text-sm font-semibold">
                           SALE
                         </div>
                       )}
                       <button
+                        aria-label={isInWishlist(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
                         onClick={(e) => {
                           e.preventDefault();
                           handleToggleWishlist(product);
@@ -284,21 +309,23 @@ export default function ProductList() {
                         </svg>
                       </button>
                       <button
+                        aria-label={isInCompare(product.id) ? 'Remove from compare' : 'Add to compare'}
                         onClick={(e) => handleToggleCompare(product, e)}
                         className={`absolute top-3 right-14 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors z-10 ${
-                          isInCompare(product.id) ? 'bg-blue-50' : ''
+                          isInCompare(product.id) ? 'bg-emerald-50' : ''
                         }`}
                       >
                         <BarChart3 className={`w-5 h-5 ${
-                          isInCompare(product.id) ? 'text-blue-600' : 'text-gray-600'
+                          isInCompare(product.id) ? 'text-emerald-600' : 'text-gray-600'
                         }`} />
                       </button>
-                    </Link>
+                    </div>
+                  </Link>
 
                   {/* Product Info */}
-                  <div className="p-4">
+                    <div className="p-4">
                     <Link to={`/products/${product.slug}`}>
-                      <h3 className="font-semibold text-gray-900 mb-2 hover:text-blue-600 line-clamp-2">
+                      <h3 className="font-semibold text-slate-900 mb-2 hover:text-emerald-700 line-clamp-2">
                         {product.name}
                       </h3>
                     </Link>
@@ -317,18 +344,18 @@ export default function ProductList() {
                           />
                         ))}
                       </div>
-                      <span className="text-sm text-gray-600">
+                      <span className="text-sm text-slate-600">
                         ({product.reviews})
                       </span>
                     </div>
 
                     {/* Price */}
                     <div className="flex items-center gap-2 mb-4">
-                      <span className="text-2xl font-bold text-gray-900">
+                      <span className="text-2xl font-bold text-slate-900">
                         ${product.price}
                       </span>
                       {product.compareAtPrice && (
-                        <span className="text-sm text-gray-500 line-through">
+                        <span className="text-sm text-slate-500 line-through">
                           ${product.compareAtPrice}
                         </span>
                       )}
@@ -375,24 +402,28 @@ export default function ProductList() {
                       name="category-mobile"
                       checked={!categoryFilter}
                       onChange={() => handleFilterChange('category', '')}
-                      className="w-4 h-4 text-blue-600"
+                      className="w-4 h-4 text-emerald-600"
                     />
                     <span className="ml-2 text-sm text-gray-700">All Categories</span>
                   </label>
-                  {categories.map((cat) => (
+                {categories.map((cat) => {
+                  const Icon = categoryMeta[cat.slug]?.icon;
+                  return (
                     <label key={cat.id} className="flex items-center">
                       <input
                         type="radio"
                         name="category-mobile"
                         checked={categoryFilter === cat.slug}
                         onChange={() => handleFilterChange('category', cat.slug)}
-                        className="w-4 h-4 text-blue-600"
+                        className="w-4 h-4 text-emerald-600"
                       />
-                      <span className="ml-2 text-sm text-gray-700">
-                        {cat.icon} {cat.name}
+                      <span className="ml-2 text-sm text-slate-700 flex items-center gap-2">
+                        {Icon && <Icon className="w-4 h-4 text-slate-500" />}
+                        {cat.name}
                       </span>
                     </label>
-                  ))}
+                  );
+                })}
                 </div>
               </div>
 

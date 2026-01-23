@@ -5,6 +5,7 @@ import { CreditCard, MapPin, ShoppingBag } from 'lucide-react';
 import Button from '../../components/Shared/Button';
 import Card from '../../components/Shared/Card';
 import Input, { Select } from '../../components/Shared/Input';
+import ImageWithSkeleton from '../../components/Shared/ImageWithSkeleton';
 import useCartStore from '../../stores/cartStore';
 import useAuthStore from '../../stores/authStore';
 import toast from 'react-hot-toast';
@@ -103,7 +104,7 @@ export default function Checkout() {
       try {
         sendOrderEmail(formData.email || 'guest@example.com', order);
       } catch (err) {
-        // eslint-disable-next-line no-console
+         
         console.warn('Failed to send mock email', err);
       }
 
@@ -134,8 +135,8 @@ export default function Checkout() {
             {/* Shipping Information */}
             <Card>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                  <MapPin className="w-5 h-5 text-blue-600" />
+                <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-emerald-700" />
                 </div>
                 <h2 className="text-xl font-bold text-gray-900">Shipping Information</h2>
               </div>
@@ -231,7 +232,7 @@ export default function Checkout() {
                     name="saveAddress"
                     checked={formData.saveAddress}
                     onChange={handleChange}
-                    className="w-4 h-4 text-blue-600 rounded"
+                    className="w-4 h-4 text-emerald-600 rounded"
                   />
                   <span className="text-sm text-gray-700">Save this address for future orders</span>
                 </label>
@@ -241,36 +242,36 @@ export default function Checkout() {
             {/* Payment Information */}
             <Card>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                  <CreditCard className="w-5 h-5 text-green-600" />
+                <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center">
+                  <CreditCard className="w-5 h-5 text-emerald-700" />
                 </div>
                 <h2 className="text-xl font-bold text-gray-900">Payment Information</h2>
               </div>
 
               <div className="space-y-4">
                 <div className="flex gap-4">
-                  <label className="flex items-center gap-2 flex-1 p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-blue-500">
+                  <label className="flex items-center gap-2 flex-1 p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-emerald-500">
                     <input
                       type="radio"
                       name="paymentMethod"
                       value="credit_card"
                       checked={formData.paymentMethod === 'credit_card'}
                       onChange={handleChange}
-                      className="w-4 h-4 text-blue-600"
+                      className="w-4 h-4 text-emerald-600"
                     />
                     <CreditCard className="w-5 h-5 text-gray-600" />
                     <span className="font-medium text-gray-900">Credit Card</span>
                   </label>
-                  <label className="flex items-center gap-2 flex-1 p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-blue-500">
+                  <label className="flex items-center gap-2 flex-1 p-4 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-emerald-500">
                     <input
                       type="radio"
                       name="paymentMethod"
                       value="paypal"
                       checked={formData.paymentMethod === 'paypal'}
                       onChange={handleChange}
-                      className="w-4 h-4 text-blue-600"
+                      className="w-4 h-4 text-emerald-600"
                     />
-                    <span className="font-bold text-blue-600">PayPal</span>
+                    <span className="font-bold text-emerald-700">PayPal</span>
                   </label>
                 </div>
 
@@ -321,8 +322,8 @@ export default function Checkout() {
                 )}
 
                 {formData.paymentMethod === 'paypal' && (
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <p className="text-sm text-blue-800">
+                  <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+                    <p className="text-sm text-emerald-800">
                       You will be redirected to PayPal to complete your purchase.
                     </p>
                   </div>
@@ -335,8 +336,8 @@ export default function Checkout() {
           <div className="lg:col-span-1">
             <Card className="sticky top-24">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                  <ShoppingBag className="w-5 h-5 text-purple-600" />
+                <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+                  <ShoppingBag className="w-5 h-5 text-amber-700" />
                 </div>
                 <h2 className="text-xl font-bold text-gray-900">Order Summary</h2>
               </div>
@@ -346,10 +347,10 @@ export default function Checkout() {
                 {items.map((item) => (
                   <div key={item.itemKey} className="flex gap-3">
                     <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
-                      <img
+                      <ImageWithSkeleton
                         src={item.product.images[0]}
                         alt={item.product.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full"
                       />
                     </div>
                     <div className="flex-1 min-w-0">

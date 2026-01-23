@@ -109,7 +109,7 @@ export default function ImageGallery({ images, productName }) {
                 onClick={() => setSelectedImage(index)}
                 className={`aspect-square rounded-lg overflow-hidden border-2 transition-all ${
                   selectedImage === index 
-                    ? 'border-blue-600 ring-2 ring-blue-200' 
+                    ? 'border-emerald-600 ring-2 ring-emerald-200' 
                     : 'border-gray-200 hover:border-gray-300'
                 }`}
               >
@@ -172,10 +172,11 @@ export default function ImageGallery({ images, productName }) {
           )}
 
           {/* Main Image */}
-          <img
+          <ImageWithSkeleton
             src={images[selectedImage]}
             alt={`${productName} fullscreen ${selectedImage + 1}`}
-            className="max-w-full max-h-full object-contain"
+            className="max-w-full max-h-full"
+            imgClassName="object-contain"
             onClick={(e) => e.stopPropagation()}
           />
         </div>

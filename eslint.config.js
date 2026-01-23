@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import js from '@eslint/js'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
@@ -17,6 +18,13 @@ export default defineConfig([
     plugins: {
       import: importPlugin,
     },
+    settings: {
+      'import/resolver': {
+        node: {
+          extensions: ['.js', '.jsx', '.ts', '.tsx']
+        }
+      }
+    },
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
@@ -27,8 +35,19 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^[A-Z_]'}],
       'import/no-unresolved': 'error',
     },
   },
+  {
+    files: ['scripts/**'],
+    languageOptions: {
+      globals: {
+        process: 'readonly'
+      }
+    },
+    rules: {
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }]
+    }
+  }
 ])

@@ -42,10 +42,6 @@ import Register from './Pages/shopper/Auth/Register';
 // Protected Route Component
 function ProtectedRoute({ children, merchantOnly = false, adminOnly = false }) {
   const { isAuthenticated, user } = useAuthStore();
-  const location = window.location; // fallback
-  try {
-    // use pathname from window.location to avoid hook inside this component file
-  } catch (e) {}
 
   if (!isAuthenticated) {
     // preserve attempted path for redirect after login

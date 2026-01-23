@@ -7,6 +7,7 @@ import useCartStore from '../../stores/cartStore';
 import Card from '../../components/Shared/Card';
 import Button from '../../components/Shared/Button';
 import Badge from '../../components/Shared/Badge';
+import ImageWithSkeleton from '../../components/Shared/ImageWithSkeleton';
 import toast from 'react-hot-toast';
 
 export default function Compare() {
@@ -98,14 +99,14 @@ export default function Compare() {
                           <X className="w-4 h-4" />
                         </button>
                         <Link to={`/products/${product.slug}`}>
-                          <img
+                          <ImageWithSkeleton
                             src={product.images[0]}
                             alt={product.name}
-                            className="w-full h-48 object-cover rounded-lg mb-3"
+                            className="w-full h-48 rounded-lg mb-3"
                           />
                         </Link>
                         <Link to={`/products/${product.slug}`}>
-                          <h3 className="font-semibold text-gray-900 hover:text-blue-600 mb-2">
+                          <h3 className="font-semibold text-gray-900 hover:text-emerald-700 mb-2">
                             {product.name}
                           </h3>
                         </Link>

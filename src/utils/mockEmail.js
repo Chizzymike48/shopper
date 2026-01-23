@@ -12,7 +12,7 @@ export function sendOrderEmail(to, order) {
   sent.unshift(email);
   localStorage.setItem('mockEmails', JSON.stringify(sent.slice(0, 50)));
   // also log to console for developer visibility
-  // eslint-disable-next-line no-console
+   
   console.info('Mock email sent', email);
   return email;
 }

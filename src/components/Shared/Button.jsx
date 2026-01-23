@@ -14,20 +14,20 @@ export default function Button({
   fullWidth = false,
   ...props
 }) {
-  const base = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+  const base = 'inline-flex items-center justify-center rounded-full font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
 
   const variants = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600',
-    secondary: 'bg-gray-100 text-gray-800 hover:bg-gray-200 focus:ring-gray-400 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600',
-    ghost: 'bg-transparent text-gray-700 hover:bg-gray-100 focus:ring-gray-200 dark:text-gray-200 dark:hover:bg-gray-700',
-    outline: 'border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-gray-400 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700',
-    danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
+    primary: 'bg-[color:var(--brand)] text-white hover:bg-[color:var(--brand-strong)] focus:ring-[color:var(--brand)] shadow-sm',
+    secondary: 'bg-white/80 text-slate-900 hover:bg-white focus:ring-slate-300 dark:bg-slate-800/80 dark:text-slate-100 dark:hover:bg-slate-800',
+    ghost: 'bg-transparent text-slate-700 hover:bg-slate-100 focus:ring-slate-200 dark:text-slate-200 dark:hover:bg-slate-800',
+    outline: 'border border-slate-200 text-slate-700 hover:bg-white focus:ring-slate-300 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-800',
+    danger: 'bg-rose-600 text-white hover:bg-rose-700 focus:ring-rose-500',
   };
 
   const sizes = {
-    sm: 'px-2 py-1 text-sm',
-    md: 'px-4 py-2 text-sm',
-    lg: 'px-6 py-3 text-base',
+    sm: 'px-3 py-1.5 text-sm',
+    md: 'px-5 py-2.5 text-sm',
+    lg: 'px-7 py-3 text-base',
   };
 
   const variantClass = variants[variant] || variants.primary;
@@ -39,7 +39,7 @@ export default function Button({
       onClick={onClick}
       disabled={disabled || loading}
       aria-busy={loading || undefined}
-      className={`${base} ${variantClass} ${sizeClass} ${fullWidth ? 'w-full' : ''} ${className} shadow-sm hover:shadow-md active:translate-y-0.5`}
+      className={`${base} ${variantClass} ${sizeClass} ${fullWidth ? 'w-full' : ''} ${className} hover:shadow-md active:translate-y-0.5`}
       {...props}
     >
       {loading && (
