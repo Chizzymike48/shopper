@@ -1,5 +1,5 @@
 // src/App.jsx
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import useAuthStore from './stores/authStore';
 
@@ -76,7 +76,7 @@ export default function App() {
   const enableAdmin = import.meta.env.VITE_ENABLE_ADMIN === 'true' || import.meta.env.DEV;
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Toaster 
         position="top-right"
         toastOptions={{
@@ -160,13 +160,27 @@ export default function App() {
 
         {/* 404 Route */}
         <Route path="*" element={
-          <div className="min-h-screen flex items-center justify-center">
-            <div className="text-center">
-              <h1 className="text-6xl font-bold text-gray-900">404</h1>
-              <p className="text-xl text-gray-600 mt-4">Page not found</p>
-              <a href="/" className="text-blue-600 hover:underline mt-4 inline-block">
-                Go back home
-              </a>
+          <div className="min-h-screen flex items-center justify-center px-6 py-16">
+            <div className="max-w-xl text-center">
+              <p className="text-xs uppercase tracking-[0.35em] text-slate-500 dark:text-slate-400">Lost in the aisles</p>
+              <h1 className="mt-4 text-6xl sm:text-7xl font-bold text-slate-900 dark:text-white">404</h1>
+              <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">
+                Page not found. The link may be outdated or moved.
+              </p>
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+                <Link
+                  to="/"
+                  className="inline-flex items-center justify-center rounded-full bg-[color:var(--brand)] px-6 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[color:var(--brand-strong)]"
+                >
+                  Go back home
+                </Link>
+                <Link
+                  to="/products"
+                  className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white/70 px-6 py-2 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-white dark:border-slate-700 dark:bg-slate-900/70 dark:text-slate-100 dark:hover:bg-slate-900"
+                >
+                  Browse products
+                </Link>
+              </div>
             </div>
           </div>
         } />

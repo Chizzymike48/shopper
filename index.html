@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%vite.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,6 +13,19 @@
     <title>Thecla Store</title>
   </head>
   <body>
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var path = params.get('path');
+        if (path) {
+          var base = '%BASE_URL%';
+          var decoded = decodeURIComponent(path);
+          var normalizedBase = base.endsWith('/') ? base : base + '/';
+          var normalizedPath = decoded.startsWith('/') ? decoded.slice(1) : decoded;
+          window.history.replaceState(null, '', normalizedBase + normalizedPath);
+        }
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
