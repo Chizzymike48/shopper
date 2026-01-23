@@ -6,7 +6,8 @@
     <title>Redirecting...</title>
     <script>
       (function () {
-        var base = '/shopper/';
+        var isGithubPages = window.location.hostname.endsWith('github.io');
+        var base = isGithubPages ? '/shopper/' : '/';
         var l = window.location;
         var fullPath = l.pathname + l.search + l.hash;
         var stripped = fullPath.startsWith(base) ? fullPath.slice(base.length) : fullPath;

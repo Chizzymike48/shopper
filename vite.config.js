@@ -6,6 +6,6 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   // When deployed as a GitHub Pages project site, set base to the repo name.
   // Use the exact repository name (case-sensitive) — repo is `shopper` so use lowercase.
-  base: '/shopper/',
+  base: process.env.VERCEL ? '/' : '/shopper/',
   plugins: [react()],
 })
